@@ -1,0 +1,20 @@
+sudo: required
+services:
+  - docker
+
+before_install:
+  - docker build -t frontend_test -f ./frontend/Dockerfile.dev .
+
+script:
+  - docker run frontend_test npm run test -- --coverage
+
+after_success:
+  - docker build -t jculvey/fib-frontend -f ./frontend
+  - docker build -t jculvey/fib-api -f ./api
+  - docker build -t jculvey/fib-worker -f ./worker
+  - docker build -t jculvey/fib-nginx -f ./nginx
+  - echo "$DOCKER_PW" | docker login -u "$DOCKER_ID" --password-stdin
+  - docker push jculvey/fib-frontend
+  - docker push jculvey/fib-api
+  - docker push jculvey/fib-worker
+  - docker push jculvey/fib-nginx
