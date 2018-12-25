@@ -9,10 +9,10 @@ script:
   - docker run frontend_test npm run test -- --coverage
 
 after_success:
-  - docker build -t jculvey/fib-frontend -f ./frontend
-  - docker build -t jculvey/fib-api -f ./api
-  - docker build -t jculvey/fib-worker -f ./worker
-  - docker build -t jculvey/fib-nginx -f ./nginx
+  - docker build -t jculvey/fib-frontend ./frontend
+  - docker build -t jculvey/fib-api ./api
+  - docker build -t jculvey/fib-worker ./worker
+  - docker build -t jculvey/fib-nginx ./nginx
   - echo "$DOCKER_PW" | docker login -u "$DOCKER_ID" --password-stdin
   - docker push jculvey/fib-frontend
   - docker push jculvey/fib-api
