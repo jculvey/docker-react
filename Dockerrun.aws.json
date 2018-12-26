@@ -5,19 +5,22 @@
       "name": "frontend",
       "image": "jculvey/fib-frontend",
       "hostname": "frontend",
-      "essential": false
+      "essential": false,
+      "memory": 128
     },
     {
       "name": "api",
       "image": "jculvey/fib-api",
       "hostname": "api",
-      "essential": false
+      "essential": false,
+      "memory": 128
     },
     {
       "name": "worker",
       "image": "jculvey/fib-worker",
       "hostname": "worker",
-      "essential": false
+      "essential": false,
+      "memory": 128
     },
     {
       "name": "nginx",
@@ -29,7 +32,8 @@
           "containerPort": "80"
         }
       ],
-      "links": ["frontend", "api"]
+      "links": ["frontend", "api"],
+      "memory": 128
     }
   ]
 }
