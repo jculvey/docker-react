@@ -1,0 +1,35 @@
+{
+  "AWSEBDockerrunVersion": 2,
+  "containerDefinitions": [
+    {
+      "name": "frontend",
+      "image": "jculvey/fib-frontend",
+      "hostname": "frontend",
+      "essential": false
+    },
+    {
+      "name": "api",
+      "image": "jculvey/fib-api",
+      "hostname": "api",
+      "essential": false
+    },
+    {
+      "name": "worker",
+      "image": "jculvey/fib-worker",
+      "hostname": "worker",
+      "essential": false
+    },
+    {
+      "name": "nginx",
+      "image": "jculvey/fib-nginx",
+      "essential": true,
+      "portMappings": [
+        {
+          "hostPort": "80",
+          "containerPort": "80"
+        }
+      ],
+      "links": ["frontend", "api"]
+    }
+  ]
+}
