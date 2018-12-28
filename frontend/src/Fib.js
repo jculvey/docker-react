@@ -33,6 +33,10 @@ export default class Fib extends React.Component {
   }
 
   renderSeenIndices() {
+    if (!this.state.seenIndices) {
+      return null;
+    }
+
     const things = this.state.seenIndices
       .map(({ number }) => number)
       .join(", ");
@@ -41,6 +45,10 @@ export default class Fib extends React.Component {
 
   // calculates stuff
   renderCalculatedValues() {
+    if (!this.state.values) {
+      return null;
+    }
+
     return Object.keys(this.state.values).map(key => (
       <div key={key}>
         For index {key} I calculated {this.state.values[key]}
