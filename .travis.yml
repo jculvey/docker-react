@@ -1,4 +1,7 @@
 sudo: required
+env:
+  global:
+    - VERSION=$(git rev-parse HEAD)
 services:
   - docker
 
@@ -9,12 +12,12 @@ script:
   - docker run frontend_test npm run test -- --coverage
 
 after_success:
-  - docker build -t jculvey/fib-frontend ./frontend
-  - docker build -t jculvey/fib-api ./api
-  - docker build -t jculvey/fib-worker ./worker
-  - docker build -t jculvey/fib-nginx ./nginx
+  - docker build -t jculvey/fib-frontend:$VERSION ./frontend
+  - docker build -t jculvey/fib-api:$VERSION ./api
+  - docker build -t jculvey/fib-worker:$VERSION ./worker
+  - docker build -t jculvey/fib-nginx:$VERSION ./nginx
   - echo "$DOCKER_PW" | docker login -u "$DOCKER_ID" --password-stdin
-  - docker push jculvey/fib-frontend
-  - docker push jculvey/fib-api
-  - docker push jculvey/fib-worker
-  - docker push jculvey/fib-nginx
+  - docker push jculvey/fib-frontend:$VERSION
+  - docker push jculvey/fib-api:$VERSION
+  - docker push jculvey/fib-worker:$VERSION
+  - docker push jculvey/fib-nginx:$VERSION
